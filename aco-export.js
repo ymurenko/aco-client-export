@@ -4,7 +4,7 @@
 
 const uint16 = (n) => {
   //color values use Apple's RGBcolor specification
-  //values must be short int (unsigned int 16)
+  //values must be unsigned int 16
   //0 is black, max value 65535 is white
   return (n / 255) * 65535;
 };
@@ -54,7 +54,7 @@ export const saveACO = (colors) => {
     stream.push(bigEndian(0));
     //leading 0
     stream.push(bigEndian(0));
-    //length of color name string
+    //length of color name string + 1 (color1 = 6 char, so put 7)
     stream.push(bigEndian(7));
     //color name string as array of UTF-16 int16s
     stream = stringToUTF(`color${i}`, stream);
@@ -63,6 +63,6 @@ export const saveACO = (colors) => {
   });
   //convert the stream to a Uint16Array
   let streamInt16 = new Uint16Array(stream);
-  //download("colorbuilder.aco", Uint16);
-  return streamInt16
+  download("colorbuilder.aco", Uint16);
+  //return streamInt16
 };
